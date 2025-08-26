@@ -36,3 +36,47 @@ Before you begin, ensure you have the following:
 ```bash
 git clone https://github.com/<your-username>/terraform-aws-two-tier.git
 cd terraform-aws-two-tier
+2. Set Up Terraform Cloud Workspace
+
+1. Sign in to your Terraform Cloud account.
+2. Create a new Organization if you haven't already.
+3. Click "Create a workspace".
+4. Choose "Version control workflow".
+5. Connect your GitHub account and select this repository.
+6. Configure the workspace:
+   · Name: aws-two-tier-app-prod
+   · Advanced Options -> Execution Mode: Remote (default)
+   · Advanced Options -> Terraform Working Directory: Leave blank if root, or specify if in a subdirectory.
+7. Click "Create workspace".
+
+3. Configure Environment Variables in Terraform Cloud
+
+In your Terraform Cloud workspace:
+
+1. Navigate to Variables > Environment Variables.
+2. Add the following sensitive variables from your AWS IAM user:
+   · AWS_ACCESS_KEY_ID - (Your Access Key)
+   · AWS_SECRET_ACCESS_KEY - (Your Secret Key)
+   · AWS_DEFAULT_REGION - (e.g., us-east-1) Mark all three as Sensitive.
+3. Navigate to Variables > Terraform Variables.
+4. Add the following variables for the database credentials:
+   · db_username - (e.g., admin)
+   · db_password - (Choose a strong password) Mark both as Sensitive.
+
+4. Trigger a Plan and Apply
+
+Terraform Cloud will automatically run terraform plan when you connect the repository. To deploy:
+
+1. From the run screen, review the plan output.
+2. If the plan looks correct, click "Confirm & Apply".
+3. Type a confirmation comment and click "Confirm Plan".
+
+Terraform Cloud will now run terraform apply to provision the entire infrastructure in your AWS account.
+
+5. Test the Deployment
+
+After a successful apply, the ALB DNS name will be available in the Outputs section of the run.
+
+1. Copy the alb_dns_name output value.
+2. Paste it into your web browser.
+3. You should see the Apache Ubuntu default test page, meaning traffic is successfully flowing through the ALB to your EC2 instances.
