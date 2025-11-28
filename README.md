@@ -15,7 +15,6 @@ The infrastructure consists of:
 - **Traffic Management:** An Internet-facing Application Load Balancer (ALB) to distribute traffic to the web tier instances.
 - **Security:** Security groups acting as firewalls to control traffic between the ALB, web servers, and database.
 
-![Architecture Diagram](./assets/architecture-diagram.png) *(Note: You should create a simple diagram and add it to an `/assets` folder in your repo)*
 
 ## Prerequisites
 
@@ -36,7 +35,8 @@ Before you begin, ensure you have the following:
 ```bash
 git clone https://github.com/<your-username>/terraform-aws-two-tier.git
 cd terraform-aws-two-tier
-2. Set Up Terraform Cloud Workspace
+```
+### 2. Set Up Terraform Cloud Workspace
 
 1. Sign in to your Terraform Cloud account.
 2. Create a new Organization if you haven't already.
@@ -49,21 +49,24 @@ cd terraform-aws-two-tier
    · Advanced Options -> Terraform Working Directory: Leave blank if root, or specify if in a subdirectory.
 7. Click "Create workspace".
 
-3. Configure Environment Variables in Terraform Cloud
+### 3. Configure Environment Variables in Terraform Cloud
 
 In your Terraform Cloud workspace:
 
 1. Navigate to Variables > Environment Variables.
 2. Add the following sensitive variables from your AWS IAM user:
+```
    · AWS_ACCESS_KEY_ID - (Your Access Key)
    · AWS_SECRET_ACCESS_KEY - (Your Secret Key)
    · AWS_DEFAULT_REGION - (e.g., us-east-1) Mark all three as Sensitive.
+```
 3. Navigate to Variables > Terraform Variables.
 4. Add the following variables for the database credentials:
+```
    · db_username - (e.g., admin)
    · db_password - (Choose a strong password) Mark both as Sensitive.
-
-4. Trigger a Plan and Apply
+```
+### 4. Trigger a Plan and Apply
 
 Terraform Cloud will automatically run terraform plan when you connect the repository. To deploy:
 
@@ -73,7 +76,7 @@ Terraform Cloud will automatically run terraform plan when you connect the repos
 
 Terraform Cloud will now run terraform apply to provision the entire infrastructure in your AWS account.
 
-5. Test the Deployment
+### 5. Test the Deployment
 
 After a successful apply, the ALB DNS name will be available in the Outputs section of the run.
 
